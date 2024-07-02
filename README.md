@@ -1,8 +1,12 @@
-# React + Vite
+### Website Link: https://college-corner.web.app
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Description:
+"collegeCorner" is a college booking website for admission. The students are able to choose their college from the several colleges.After all, the website is eye catching and user friendly.
 
-Currently, two official plugins are available:
+### Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- React js is implemented.
+- Firebase authentication is implemented.
+- Daisyui is implemented.
+- react-router-dom is implemented.
+- react-swiper slide is used.
