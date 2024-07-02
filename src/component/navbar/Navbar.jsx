@@ -11,7 +11,7 @@ const Navbar = () => {
     </>
     return (
         <div className="relative">
-            <div className="navbar border">
+            <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
                         <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -41,16 +41,11 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <div className="navbar-end border-4 relative">
-                    <IoSearchOutline className="md:absolute mr-5 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer border-4" id="search-icon" ></IoSearchOutline>
+                <div className="navbar-end  relative">
+                    <IoSearchOutline className="md:absolute mr-5 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer" id="search-icon" ></IoSearchOutline>
                     <NavLink to='/sign-up'>Sign Up</NavLink>
                 </div>
             </div>
-            {/* search container */}
-            {/* <div className="border-4 border-red-500 h-[300px] absolute w-full top-[100px]"
-            id="search-cotainer">
-
-            </div> */}
         </div>
     );
 };

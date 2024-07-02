@@ -1,8 +1,11 @@
+import Allcolleges from "../../component/allcolleges/Allcolleges";
+import CollegesBanner from "../../component/collegesBanner/CollegesBanner";
 
 const Colleges = () => {
     return (
         <div>
-            <h1>this is colleges page</h1>
+            <CollegesBanner></CollegesBanner>
+            <Allcolleges></Allcolleges>
         </div>
     );
 };

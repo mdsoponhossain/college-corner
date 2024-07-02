@@ -9,7 +9,7 @@ const HomeResearchPaper = () => {
             </div>
         </div>
         {/* research card container */}
-        <div className="relative border-4 border-red-500 h-fit md:h-[600px]">
+        <div className="relative  h-fit md:h-[600px]">
             {/* image-1 */}
             <div className="md:absolute md:w-[30%] right-[35%] top-[10%]">
                 <img src="https://www.edgeip.com/images/FCK/Image/202201/VIU-UndergradResearch.jpg" alt="" />
