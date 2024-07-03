@@ -15,7 +15,7 @@ const AdmissionCollege = () => {
 
     // console.log(colleges)
     return (
-        <div className="w-[1280px] mx-auto mt-2">
+        <div className="max-w-[1280px]  mx-auto mt-2">
             <h1 className="text-4xl text-center">Book Your Institute</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">

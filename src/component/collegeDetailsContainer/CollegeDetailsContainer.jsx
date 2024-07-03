@@ -11,7 +11,7 @@ const CollegeDetailsContainer = () => {
 
 
     return (
-        <div className=" bg-base-100  shadow-xl h-fit w-[1280px] mx-auto">
+        <div className=" bg-base-100  shadow-xl h-fit max-w-[1280px] mx-auto">
             <h1 className="text-4xl text-center mt-3">Colleges Info</h1>
             <div className="flex justify-center shadow-xl md:shadow-sm">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">

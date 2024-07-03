@@ -23,7 +23,7 @@ const Allcolleges = () => {
 
 
     return (
-        <div className="mt-0 md:mt-20 relative w-[1280px] mx-auto">
+        <div className="mt-0 md:mt-20 relative max-w-[1280px] mx-auto">
             {/* react counter */}
             <div className="w-full my-3 bg-white h-fit pb-4 md:pb-0 md:h-[150px] md:absolute -top-[200px] grid justify-center md:grid-cols-2 lg:grid-cols-4 md:pl-[15%] lg:pl-[7%] shadow-md">
 
