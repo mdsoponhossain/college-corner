@@ -9,6 +9,7 @@ import Colleges from "../pages/colleges/Colleges";
 import ErrorPage from "../pages/errorPage/ErrorPage";
 import SignUp from "../pages/signUp/SignUp";
 import Login from "../pages/login/Login";
+import CollegeDetails from "../pages/collegeDetails/CollegeDetails";
 
 const router = createBrowserRouter([
     {
@@ -37,7 +38,12 @@ const router = createBrowserRouter([
         },{
             path:'/login',
             element:<Login></Login>
+        },
+        {
+            path:'/college-detail',
+            element:<CollegeDetails></CollegeDetails>
         }
+        
         ]
     },
 ]);
