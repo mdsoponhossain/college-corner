@@ -1,8 +1,11 @@
+import AdmissionBanner from "../../component/admissionBanner/AdmissionBanner";
+import AdmissionCollege from "../../component/admissionCollege/AdmissionCollege";
 
 const Admission = () => {
     return (
         <div>
-            <h1>This is admission page...</h1>
+            <AdmissionBanner></AdmissionBanner>
+            <AdmissionCollege></AdmissionCollege>
         </div>
     );
 };

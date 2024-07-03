@@ -1,8 +1,11 @@
+import MyCollegeList from "../../component/myCollegeList/MyCollegeList";
+import MycollegeBanner from "../../component/mycollegeBanner/MycollegeBanner";
 
 const MyCollege = () => {
     return (
         <div>
-           <h1>this is my college page...</h1> 
+           <MycollegeBanner></MycollegeBanner> 
+           <MyCollegeList></MyCollegeList> 
         </div>
     );
 };
