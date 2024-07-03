@@ -1,11 +1,15 @@
+import { useLoaderData, useParams } from "react-router-dom";
 import CollegeDetailsBanner from "../../component/collegeDetailsBanner/CollegeDetailsBanner";
 import CollegeDetailsContainer from "../../component/collegeDetailsContainer/CollegeDetailsContainer";
 
 const CollegeDetails = () => {
+   
+   
+    
     return (
         <div>
-           <CollegeDetailsBanner></CollegeDetailsBanner>
-           <CollegeDetailsContainer></CollegeDetailsContainer>
+            <CollegeDetailsBanner></CollegeDetailsBanner>
+            <CollegeDetailsContainer ></CollegeDetailsContainer>
         </div>
     );
 };

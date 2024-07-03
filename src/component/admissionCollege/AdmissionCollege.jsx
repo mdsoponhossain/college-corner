@@ -1,13 +1,23 @@
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 const AdmissionCollege = () => {
     const {
         register,
         handleSubmit,
     } = useForm();
+
+    const [colleges, setColleges] = useState([]);
+    useEffect(() => {
+        fetch('https://college-corner-server.vercel.app/colleges/all')
+            .then(res => res.json())
+            .then(data => setColleges(data));
+    }, [])
+
+    // console.log(colleges)
     return (
-        <div>
-            <h1 className="text-4xl text-center mt-3">Colleges</h1>
-            <div className="flex justify-center shadow-xl md:shadow-sm">
+        <div className="w-[1280px] mx-auto mt-2">
+            <h1 className="text-4xl text-center">Book Your Institute</h1>
+            <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">
 
                 </div>
@@ -15,45 +25,18 @@ const AdmissionCollege = () => {
 
             {/* college name container */}
             <div className="grid md:grid-cols-2 lg:grid-cols-3 items-center gap-5 my-5">
-                {/* colleges name cards 1 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
-                    </div>
-                </div>
-                {/* colleges name cards 2 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
-                    </div>
-                </div>
+
                 {/* colleges name cards 3 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
-                    </div>
-                </div>
-                {/* colleges name cards 1 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
-                    </div>
-                </div>
-                {/* colleges name cards 2 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
-                    </div>
-                </div>
-                {/* colleges name cards 3 */}
-                <div className="card bg-base-100  shadow-xl">
-                    <div className="card-body">
-                        <label htmlFor="my_modal_7" className="border-4 border-black ">
-                        <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
+                {
+                    colleges?.map((college) => <div key={college?._id} className="card bg-base-100  shadow-xl">
+                        <label htmlFor="my_modal_7" >
+                            <div className="card-body">
+                                <h1 className="text-2xl font-bold text-green-600">Universiy of Melbourne</h1>
+
+                            </div>
                         </label>
-                        
-                    </div>
-                </div>
+                    </div>)
+                }
 
                 {/* modal click */}
                 {/* <label htmlFor="my_modal_7" className="button-primary  py-2 px-5 mx-3 md:px-10">
@@ -93,7 +76,7 @@ const AdmissionCollege = () => {
                                     <span>Your Photo</span>
                                     <input type="file" {...register("image", { required: true })} className="dark:bg-slate-700 file-input file-input-bordered w-full " />
                                 </div>
-                                
+
                             </div>
                             <textarea className="w-full mb-8 pl-3 border border-black" name="" placeholder="Subject" {...register("Subject", { required: true })} cols="30" rows='6'></textarea>
                             {/* <div className="text-center button-primary py-2">

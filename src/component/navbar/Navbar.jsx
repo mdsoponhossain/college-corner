@@ -10,7 +10,7 @@ const Navbar = () => {
         <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/my-college'>My College</NavLink></li>
     </>
     return (
-        <div className="relative">
+        <div  className="relative my-5 max-w-[1280px] mx-auto">
             <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">

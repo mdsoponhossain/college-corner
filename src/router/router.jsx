@@ -40,8 +40,9 @@ const router = createBrowserRouter([
             element:<Login></Login>
         },
         {
-            path:'/college-detail',
-            element:<CollegeDetails></CollegeDetails>
+            path:'/college-details/:id',
+            element:<CollegeDetails></CollegeDetails>,
+            loader:({params})=>fetch(`https://college-corner-server.vercel.app/colleges/${params.id}`)
         }
         
         ]

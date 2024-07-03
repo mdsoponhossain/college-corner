@@ -12,7 +12,7 @@ const CollegeDetailsBanner = () => {
                         <h1 className="text-center mb-4 font-bold">College Details</h1>
                         <div className="flex items-center gap-2 font-bold">
                             <NavLink to='/'>Home</NavLink>
-                            <MdOutlineArrowForwardIos>></MdOutlineArrowForwardIos>
+                            <MdOutlineArrowForwardIos></MdOutlineArrowForwardIos>
                             <NavLink to='/'>Admission</NavLink>
                         </div>
                     </div>

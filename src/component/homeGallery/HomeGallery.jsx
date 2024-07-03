@@ -7,7 +7,7 @@ import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
 const HomeGallery = () => {
     return (
-        <div className="mt-5">
+        <div className="mt-5 max-w-[1280px] mx-auto">
             <h1 className="text-4xl text-center">Gallery</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">

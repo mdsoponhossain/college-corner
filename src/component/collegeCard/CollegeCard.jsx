@@ -3,47 +3,61 @@ import { FaBook } from "react-icons/fa";
 import { MdEmojiEvents } from "react-icons/md";
 import ReactStars from "react-rating-stars-component";
 import './collegeCard.css'
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 const CollegeCard = () => {
+
+    const [topColleges, setTopColleges] = useState([]);
+    useEffect(() => {
+        fetch('https://college-corner-server.vercel.app/colleges/top')
+            .then(res => res.json())
+            .then(data => setTopColleges(data));
+    }, [])
+
+    // console.log(topColleges)
+
     return (
-        <div className="my-5">
+        <div className="my-5 max-w-[1280px] mx-auto">
             <h1 className="text-4xl text-center">Explore Your Institute</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">
 
                 </div>
             </div>
-            {/* card container */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14">
+             {/* card container */}
+             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14 my-10">
                 {/* first card */}
-                <div className=" bg-base-100  shadow-xl card-radius">
+                {
+                    topColleges?.map((college)=>
+                        <div key={college.id} className="bg-base-100  shadow-xl card-radius">
 
                     <figure>
-                        <img className="rounded-t-md"
-                            src="https://images.theconversation.com/files/42339/original/2r9q69ts-1393218447.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip"
+                        <img className="rounded-t-md h-[250px] w-full"
+                            src={college?.image}
                             alt="Shoes" />
                     </figure>
 
-                    <div className="flex gap-4 py-4 px-2">
+                    <div className="grid gap-1 grid-cols-2 md:grid-cols-3 md:gap-4 py-4 px-2">
                         <div className="flex gap-2 items-center">
                             <CiClock2></CiClock2>
-                            <p>12 Feb 2024</p>
+                            <p>{college?.admission_date}</p>
                         </div>
 
                         <div className="flex gap-2 items-center">
                             <FaBook></FaBook>
-                            <p>4 Research</p>
+                            <p>{college?.research_number} Research</p>
                         </div>
 
                         <div className="flex gap-2 items-center">
                             <MdEmojiEvents></MdEmojiEvents>
-                            <p>10 Events</p>
+                            <p>{college?.event_number} Events</p>
                         </div>
 
                     </div>
 
                     <div className="p-3">
-                        <h2 className="card-title">University of Melbourne</h2>
-                        <p className="text-justify">It ranks #1 in Australia, and 32 globally Furthermore.It also ranks sixth in graduate employability worldwide.</p>
+                        <h2 className="card-title">{college?.college_name}</h2>
+                        <p className="text-justify">{college?.ranking_details}</p>
                     </div>
 
                     {/* horizontal line */}
@@ -53,12 +67,12 @@ const CollegeCard = () => {
                     {/* reviews */}
 
                     <div className="flex justify-between item-center px-2 py-4">
-                        <div><button className="btn btn-primary">Details</button></div>
+                        <div><Link to={`/college-details/${college?._id}`} className="btn btn-primary">Details</Link></div>
                         <div className="flex items-center gap-1">
-                            <p>(4)</p>
+                            <p>({college?.reviews_number})</p>
                             <ReactStars
                                 count={5}
-                                value={3.5}
+                                value={college?.average_reviews}
                                 isHalf={true}
                                 size={24}
                                 activeColor="#ffd700"
@@ -66,111 +80,9 @@ const CollegeCard = () => {
                         </div>
                     </div>
                 </div>
-                {/* second card */}
-                <div className=" bg-base-100  shadow-xl card-radius">
-
-                    <figure>
-                        <img className="rounded-t-md"
-                            src="https://images.theconversation.com/files/42339/original/2r9q69ts-1393218447.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip"
-                            alt="Shoes" />
-                    </figure>
-
-                    <div className="flex gap-4 py-4 px-2">
-                        <div className="flex gap-2 items-center">
-                            <CiClock2></CiClock2>
-                            <p>12 Feb 2024</p>
-                        </div>
-
-                        <div className="flex gap-2 items-center">
-                            <FaBook></FaBook>
-                            <p>4 Research</p>
-                        </div>
-
-                        <div className="flex gap-2 items-center">
-                            <MdEmojiEvents></MdEmojiEvents>
-                            <p>10 Events</p>
-                        </div>
-
-                    </div>
-
-                    <div className="p-3">
-                        <h2 className="card-title">University of Melbourne</h2>
-                        <p className="text-justify">It ranks #1 in Australia, and 32 globally Furthermore.It also ranks sixth in graduate employability worldwide.</p>
-                    </div>
-
-                    {/* horizontal line */}
-                    <div className="mr-2 border-2">
-
-                    </div>
-                    {/* reviews */}
-
-                    <div className="flex justify-between item-center px-2 py-4">
-                        <div><button className="btn btn-primary">Details</button></div>
-                        <div className="flex items-center gap-1">
-                            <p>(4)</p>
-                            <ReactStars
-                                count={5}
-                                value={3.5}
-                                isHalf={true}
-                                size={24}
-                                activeColor="#ffd700"
-                            />
-                        </div>
-                    </div>
-                </div>
-
-                {/* third card */}
-                <div className=" bg-base-100  shadow-xl card-radius">
-
-                    <figure>
-                        <img className="rounded-t-md"
-                            src="https://images.theconversation.com/files/42339/original/2r9q69ts-1393218447.jpg?ixlib=rb-4.1.0&q=45&auto=format&w=926&fit=clip"
-                            alt="Shoes" />
-                    </figure>
-
-                    <div className="flex gap-4 py-4 px-2">
-                        <div className="flex gap-2 items-center">
-                            <CiClock2></CiClock2>
-                            <p>12 Feb 2024</p>
-                        </div>
-
-                        <div className="flex gap-2 items-center">
-                            <FaBook></FaBook>
-                            <p>4 Research</p>
-                        </div>
-
-                        <div className="flex gap-2 items-center">
-                            <MdEmojiEvents></MdEmojiEvents>
-                            <p>10 Events</p>
-                        </div>
-
-                    </div>
-
-                    <div className="p-3">
-                        <h2 className="card-title">University of Melbourne</h2>
-                        <p className="text-justify">It ranks #1 in Australia, and 32 globally Furthermore.It also ranks sixth in graduate employability worldwide.</p>
-                    </div>
-
-                    {/* horizontal line */}
-                    <div className="mr-2 border-2">
-
-                    </div>
-                    {/* reviews */}
-
-                    <div className="flex justify-between item-center px-2 py-4">
-                        <div><button className="btn btn-primary">Details</button></div>
-                        <div className="flex items-center gap-1">
-                            <p>(4)</p>
-                            <ReactStars
-                                count={5}
-                                value={3.5}
-                                isHalf={true}
-                                size={24}
-                                activeColor="#ffd700"
-                            />
-                        </div>
-                    </div>
-                </div>
+                    )
+                }
+                
 
             </div>
 
