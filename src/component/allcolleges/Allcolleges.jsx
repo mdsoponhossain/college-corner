@@ -78,7 +78,7 @@ const Allcolleges = () => {
 
                                     <div className="flex gap-2 items-center">
                                         <FaBook></FaBook>
-                                        <p>{college?.research_number} Research</p>
+                                        <p>{college?.research_number}Research</p>
                                     </div>
 
                                     <div className="flex gap-2 items-center">

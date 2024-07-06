@@ -33,7 +33,7 @@ const CollegeCard = () => {
                     <figure>
                         <img className="rounded-t-md h-[250px] w-full"
                             src={college?.image}
-                            alt="Shoes" />
+                            alt={college?.college_name} />
                     </figure>
 
                     <div className="grid gap-1 grid-cols-2 md:grid-cols-3 md:gap-4 py-4 px-2">
@@ -44,7 +44,7 @@ const CollegeCard = () => {
 
                         <div className="flex gap-2 items-center">
                             <FaBook></FaBook>
-                            <p>{college?.research_number} Research</p>
+                            <p>{college?.research_number}Research</p>
                         </div>
 
                         <div className="flex gap-2 items-center">
