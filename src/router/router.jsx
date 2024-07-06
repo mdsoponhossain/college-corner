@@ -7,6 +7,11 @@ import Admission from "../pages/admission/Admission";
 import MyCollege from "../pages/myCollege/MyCollege";
 import Colleges from "../pages/colleges/Colleges";
 import ErrorPage from "../pages/errorPage/ErrorPage";
+import SignUp from "../pages/signUp/SignUp";
+import Login from "../pages/login/Login";
+import CollegeDetails from "../pages/collegeDetails/CollegeDetails";
+import PrivateRoute from "../sharedComponents/privateRoute/PrivateRoute";
+import AddReview from "../component/addReview/AddReview";
 
 const router = createBrowserRouter([
     {
@@ -23,12 +28,31 @@ const router = createBrowserRouter([
         },
         {
             path: 'admission',
-            element: <Admission></Admission>
+            element: <PrivateRoute><Admission></Admission></PrivateRoute>
         },
         {
-            path: 'my-college',
-            element: <MyCollege></MyCollege>
+            path: 'my-college/:email',
+            element: <PrivateRoute><MyCollege></MyCollege></PrivateRoute>,
+            loader: ({ params }) => fetch(`https://college-corner-server.vercel.app/user-booked-data/${params.email}`)
         },
+        {
+            path: '/sign-up',
+            element: <SignUp></SignUp>
+        },
+         {
+            path: '/login',
+            element: <Login></Login>
+        },
+        {
+            path: '/college-details/:id',
+            element: <PrivateRoute><CollegeDetails></CollegeDetails></PrivateRoute>,
+            loader: ({ params }) => fetch(`https://college-corner-server.vercel.app/colleges/${params.id}`)
+        },
+        {
+            path:'/add-review/:id',
+            element:<AddReview></AddReview>
+        }
+
         ]
     },
 ]);

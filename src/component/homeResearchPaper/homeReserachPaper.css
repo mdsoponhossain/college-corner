@@ -1,0 +1,7 @@
+.go-btn{
+    display: none;
+}
+
+.go-btn-container:hover >.go-btn {
+    display: block;
+}

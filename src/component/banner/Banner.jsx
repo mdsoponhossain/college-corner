@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 const Banner = () => {
     return (
@@ -9,13 +10,12 @@ const Banner = () => {
                     </div>
 
                     <div className="flex-grow ">
-                        <div className=" h-[300px] mt-[10%]">
-                            <h1 className=" text-3xl md:text-4xl font-bold">Welcome to CollegeCorner</h1>
-                            <p className="py-6 text-lg md:text-xl">
-                                Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                                quasi. In deleniti eaque aut repudiandae et a id nisi.
+                        <div className=" min-h-[300px] max-h-fit pb-8 md:pb-0 mt-[10%]">
+                            <h1 className=" text-2xl md:text-4xl font-bold">Welcome to CollegeCorner</h1>
+                            <p className="py-6 text-lg md:text-xl text-justify  md:text-center px-3 md:px-0">
+                                CollegeCorner offers personalized application guidance, helping students navigate the college application process with ease and confidence.
                             </p>
-                            <button className="btn bg-white text-green-700">Get Started</button>
+                            <Link to='/colleges' className="btn bg-slate-900 hover:bg-black text-white hover:border-none">Explore</Link>
                         </div>
                     </div>
 
@@ -26,9 +26,9 @@ const Banner = () => {
 
 
                 </div>
-              
 
-            
+
+
 
             </div>
         </div>

@@ -1,5 +1,10 @@
+import { useContext } from "react";
+import { AuthContext } from "../../contextProvider/ContextProvider";
+import { IoSearchOutline } from "react-icons/io5";
+
 
 const CollegesBanner = () => {
+    const { handleSearch } = useContext(AuthContext);
     return (
         <div className="hero min-h-[500px] bg-[rgb(20,69,47)] text-white">
             <div className="hero-content text-center relative p-0">
@@ -9,12 +14,12 @@ const CollegesBanner = () => {
                     </div>
 
                     <div className="flex-grow  md:w-[80%] grid items-center">
-                        <div className=" h-[200px] mt-[10%]">
-                            <h1 className=" text-2xl md:text-4xl font-bold mb-5">Find Your college Here</h1>
-                            <div className="">
-                                <input type="text" name="searchText" className="pl-2 h-12 w-[70%]" placeholder="Your Search Text..." />
-                                <button className="px-3 py-[12.5px] bg-primary text-white font-bold">Search</button>
-                            </div>
+                        <div className=" h-[100px] mt-[10%] grid justify-center">
+                            <h1 className=" text-2xl md:text-4xl font-bold mb-5 text-center">Find Your college Here</h1>
+                            <form onSubmit={handleSearch} className="flex">
+                                <input type="text" name="searchText" className="text-black pl-2 h-12 w-[80%]" placeholder="Your Search Text..." />
+                                <button className="grid justify-center items-center w-[80px] h-12 bg-black text-2xl"><IoSearchOutline className="block"></IoSearchOutline></button>
+                            </form>
                         </div>
                     </div>
 
