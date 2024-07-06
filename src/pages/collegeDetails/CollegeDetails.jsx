@@ -1,4 +1,3 @@
-import { useLoaderData, useParams } from "react-router-dom";
 import CollegeDetailsBanner from "../../component/collegeDetailsBanner/CollegeDetailsBanner";
 import CollegeDetailsContainer from "../../component/collegeDetailsContainer/CollegeDetailsContainer";
 

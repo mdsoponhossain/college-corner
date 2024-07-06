@@ -12,7 +12,7 @@ const AdmissionBanner = () => {
                         <div className="flex items-center gap-2 font-bold">
                             <NavLink to='/'>Home</NavLink>
                             <MdOutlineArrowForwardIos></MdOutlineArrowForwardIos>
-                            <NavLink to='/'>Admission</NavLink>
+                            <span>Admission</span>
                         </div>
                     </div>
                 </div>

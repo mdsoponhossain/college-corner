@@ -14,22 +14,21 @@ const CollegeCard = () => {
             .then(data => setTopColleges(data));
     }, [])
 
-    // console.log(topColleges)
 
     return (
         <div className="my-5 max-w-[1280px] mx-auto">
-            <h1 className="text-4xl text-center">Explore Your Institute</h1>
+            <h1 className="text-2xl md:text-4xl text-center">Explore Your Institute</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">
 
                 </div>
             </div>
              {/* card container */}
-             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-14 my-10">
+             <div className="grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:my-6 lg:gap-10 lg:my-7 px-3">
                 {/* first card */}
                 {
                     topColleges?.map((college)=>
-                        <div key={college.id} className="bg-base-100  shadow-xl card-radius">
+                        <div key={college.id} className="bg-base-100  hover:bg-base-200 shadow-xl card-radius my-5 md:my-0">
 
                     <figure>
                         <img className="rounded-t-md h-[250px] w-full"
@@ -66,8 +65,8 @@ const CollegeCard = () => {
                     </div>
                     {/* reviews */}
 
-                    <div className="flex justify-between item-center px-2 py-4">
-                        <div><Link to={`/college-details/${college?._id}`} className="btn btn-primary">Details</Link></div>
+                    <div className="flex justify-between item-center px-2 py-4 ">
+                        <div><Link to={`/college-details/${college?._id}`} className="primary-btn block">Details</Link></div>
                         <div className="flex items-center gap-1">
                             <p>({college?.reviews_number})</p>
                             <ReactStars

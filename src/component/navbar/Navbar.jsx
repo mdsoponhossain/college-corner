@@ -1,16 +1,27 @@
 import { NavLink } from "react-router-dom";
 import './navbar.css'
 import { IoSearchOutline } from "react-icons/io5";
+import { useContext } from "react";
+import { AuthContext } from "../../contextProvider/ContextProvider";
 
 const Navbar = () => {
+    const { currentUser, handleSignOut } = useContext(AuthContext);
     const navItems = <>
         <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/'>Home</NavLink></li>
         <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/colleges'>Colleges</NavLink></li>
-        <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/admission'>Admission</NavLink></li>
-        <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/my-college'>My College</NavLink></li>
+        
+        {
+            currentUser && <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/admission'>Admission</NavLink></li>
+
+        }
+        {
+            currentUser && <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to={`/my-college/${currentUser?.email}`}>My College</NavLink></li>
+
+        }
+
     </>
     return (
-        <div  className="relative my-5 max-w-[1280px] mx-auto">
+        <div className="relative max-w-[1280px] mx-auto h-fit">
             <div className="navbar">
                 <div className="navbar-start">
                     <div className="dropdown">
@@ -30,7 +41,7 @@ const Navbar = () => {
                         </div>
                         <ul
                             tabIndex={0}
-                            className=" menu-sm dropdown-content rounded-box z-[1] mt-3 w-52 p-2 shadow">
+                            className=" menu-sm dropdown-content bg-white bg-opacity-80 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                             {navItems}
                         </ul>
                     </div>
@@ -42,10 +53,26 @@ const Navbar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end  relative">
-                    <IoSearchOutline className="md:absolute mr-5 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer" id="search-icon" ></IoSearchOutline>
-                    <NavLink to='/sign-up'>Sign Up</NavLink>
+                    <IoSearchOutline className="hidden md:block md:absolute search-icon mr-5 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer"></IoSearchOutline>
+                    {/* <NavLink to='/sign-up'>Sign Up</NavLink> */}
+                    {
+                        !currentUser?.email ? <NavLink to='/sign-up'>Sign Up</NavLink> :
+                            <div className="dropdown dropdown-end">
+                                <div tabIndex={0} role="button" className="btn m-1">
+                                    {
+                                        currentUser?.photoURL ? <img className="h-10 w-10 rounded-[25px]" src={currentUser?.photoURL} alt="" /> : <h1>{currentUser?.email?.slice(0, 1)}</h1>
+                                    }
+                                </div>
+                                <ul tabIndex={0} className="bg-white bg-opacity-80 dropdown-content menu  rounded-box z-[1] w-52 p-2 shadow">
+                                    <li className="text-lg font-bold">{currentUser?.displayName}</li>
+                                    <li onClick={handleSignOut} className="bg-green-800 text-white">Sign Out</li>
+                                </ul>
+                            </div>
+                    }
                 </div>
             </div>
+
+            {/* search container */}
         </div>
     );
 };
