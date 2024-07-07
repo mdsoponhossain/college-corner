@@ -5,6 +5,7 @@ export const AuthContext = createContext(null)
 const ContextProvider = ({ children }) => {
     const [searchText, setSearchText] = useState('');
     const [isLoading, setIsLoading] = useState(true);
+    const [isDataLoading, setIsDataLoading] = useState(false)
 
     const handleSearch = (e) => {
         e.preventDefault();
@@ -27,7 +28,7 @@ const ContextProvider = ({ children }) => {
 
     // handle sign out:
     const handleSignOut = () => {
-        signOut(auth).then(() =>{}).catch(() => {})
+        signOut(auth).then(() => { }).catch(() => { })
     };
 
     // handle sign in:
@@ -58,7 +59,9 @@ const ContextProvider = ({ children }) => {
         handleSignOut,
         handleSignIn,
         isLoading,
-        handleResetPassword
+        handleResetPassword,
+        isDataLoading,
+        setIsDataLoading
     };
 
     return (

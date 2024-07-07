@@ -1,44 +1,51 @@
-
-
 import { useContext, useState } from "react";
-import { Link, useNavigate, } from "react-router-dom";
+import { Link, useLocation, useNavigate, } from "react-router-dom";
 import { AuthContext } from "../../contextProvider/ContextProvider";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
 const Login = () => {
-    const { handleSignIn, handleResetPassword } = useContext(AuthContext);
-    const navigation = useNavigate();
+    const { handleSignIn, handleResetPassword,isDataLoading, setIsDataLoading } = useContext(AuthContext);
     const [email, setEmail] = useState('');
+    const navigate = useNavigate();
+    const notify = () => toast("You have logged in successfully");
+    const error = () => toast("Something wrong.Try again later");
+    const notifyAboutPassRestEmail = () => toast("Password reset email was sent to your email");
+    const location = useLocation();
 
     const signIn = (e) => {
         e.preventDefault();
+        setIsDataLoading(true)
         const email = e.target.email.value;
         const password = e.target.password.value;
         handleSignIn(email, password)
             .then((res) => {
                 if (res?.user) {
                     //notify does not
-                    // notify()
-                    navigation('/')
+                    setTimeout(() => {
+                        navigate(location?.state ? location.state : '/')
+                    }, 3000);
+                    notify();
+                    setIsDataLoading(false)
                 }
             })
-            .catch(() => { })
+            .catch(() => { error() })
 
     }
 
     const resetThePassword = () => {
         if (email?.length > 12) {
             handleResetPassword(email)
-                .then(() => { })
-                .catch(() => { })
+                .then(() => { notifyAboutPassRestEmail() })
+                .catch(() => { error() })
         }
     }
-
     return (
         <div className="hero min-h-screen w-full text-black bg-base-200">
-
+            <ToastContainer />
             <div className="md:hero-content w-full flex-col ">
 
                 <div className="card flex-shrink-0 w-[100%] mx-auto  md:w-[500px] h-fit md:shadow-xl md:bg-base-100">
@@ -71,9 +78,14 @@ const Login = () => {
                             </label>
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn  text-white bg-green-700 hover:bg-green-900">Login</button>
+                            <button className="btn  text-white bg-green-700 hover:bg-green-900">
+                                {
+                                    isDataLoading ? <span className="loading loading-dots loading-xs"></span> : 'Login'
+                                }
+                            </button>
+
                             <label className="label">
-                                <span>New here? please <Link to='/sign-up' className=" text-xl text-[#09ad9b] pl-2">SignUp</Link></span>
+                                <span>New here? please <Link to='/sign-up' className=" text-xl text-green-700 pl-2">SignUp</Link></span>
                             </label>
                         </div>
                     </form>

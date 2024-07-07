@@ -2,10 +2,11 @@ import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form"
 import { AuthContext } from "../../contextProvider/ContextProvider";
 import { useNavigate } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 
 const AdmissionCollege = () => {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, isDataLoading, setIsDataLoading } = useContext(AuthContext);
     const navigation = useNavigate()
     //college id :
     const [collegeId, setCollegeId] = useState('');
@@ -19,12 +20,16 @@ const AdmissionCollege = () => {
         fetch('https://college-corner-server.vercel.app/colleges/all')
             .then(res => res.json())
             .then(data => setColleges(data));
-    }, [])
+    }, []);
+
+    const notify = () => toast("successfully college is booked");
+    const error = () => toast("college book was failed");
 
     const onSubmit = data => {
+        setIsDataLoading(true)
         data.college_id = collegeId;
         fetch('https://college-corner-server.vercel.app/user-booked-data', {
-            // fetch('http://localhost:5000/user-booked-data',{
+            // fetch('http://localhost:5000/user-booked-data', {
             method: 'POST',
             headers: {
                 'Content-type': 'application/json'
@@ -34,13 +39,21 @@ const AdmissionCollege = () => {
             .then(res => res.json())
             .then(data => {
                 if (data.success) {
-                    navigation(`/my-college/${currentUser?.email}`)
+                    setTimeout(() => {
+                        navigation(`/my-college/${currentUser?.email}`);
+                    }, 3000);
+                    notify()
                 }
+                else {
+                    error()
+                }
+                setIsDataLoading(false)
             })
     };
 
     return (
         <div className="max-w-[1280px]  mx-auto mt-2">
+            <ToastContainer></ToastContainer>
             <h1 className="text-2xl md:text-4xl text-center">Book Your Institute</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">
@@ -108,10 +121,9 @@ const AdmissionCollege = () => {
                             {/* <div className="text-center button-primary py-2">
                                             <span className="text-center  ">Submit Reservation</span>
                                         </div> */}
-
-
-                            <input className="text-center bg-green-800 text-white py-2 w-full" type="submit" value="Reservation" />
-
+                            {
+                                isDataLoading ? <button className="text-center bg-green-800 text-white py-2 w-full"><span className="loading loading-dots loading-xs"></span></button> : <input className="text-center bg-green-800 text-white py-2 w-full" type="submit" value="Reservation" />
+                            }
 
 
                         </form>

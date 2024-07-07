@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             path: '/sign-up',
             element: <SignUp></SignUp>
         },
-         {
+        {
             path: '/login',
             element: <Login></Login>
         },
@@ -49,8 +49,8 @@ const router = createBrowserRouter([
             loader: ({ params }) => fetch(`https://college-corner-server.vercel.app/colleges/${params.id}`)
         },
         {
-            path:'/add-review/:id',
-            element:<AddReview></AddReview>
+            path: '/add-review/:id',
+            element: <PrivateRoute><AddReview></AddReview></PrivateRoute>
         }
 
         ]

@@ -2,9 +2,12 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contextProvider/ContextProvider";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast, ToastContainer } from "react-toastify";
 
 const AddReview = () => {
-    const { currentUser } = useContext(AuthContext);
+    const { currentUser, isDataLoading, setIsDataLoading } = useContext(AuthContext);
+    const notify = () => toast("your review added");
+    const error = () => toast("Something wrong.Try again later");
     const { id } = useParams();
     const navigation = useNavigate();
     const {
@@ -14,6 +17,7 @@ const AddReview = () => {
 
 
     const onSubmit = data => {
+        setIsDataLoading(true)
         data.college_id = id
         fetch('https://college-corner-server.vercel.app/review', {
             method: 'POST',
@@ -24,9 +28,14 @@ const AddReview = () => {
         })
             .then(res => res.json())
             .then(data => {
+                setIsDataLoading(false)
                 if (data.success) {
-                    navigation(`/my-college/${currentUser?.email}`)
-                    // setTimeout(navigation(`/my-college/${currentUser?.email}`),5000)
+                    setTimeout(() => {
+                        navigation(`/my-college/${currentUser?.email}`)
+                    }, 3000);
+                    notify()
+                } else {
+                    error();
                 }
             })
     }
@@ -36,6 +45,7 @@ const AddReview = () => {
     return (
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content">
+                <ToastContainer/>
 
                 <div className="max-w-[400px] mx-auto bg-slate-200 p-10">
                     <form onSubmit={handleSubmit(onSubmit)} >
@@ -72,7 +82,10 @@ const AddReview = () => {
 
                         </div>
                         <textarea className="w-full mb-8 pl-3 border border-black" name="" placeholder="your comment" {...register("user_comment", { required: true })} cols="30" rows='2'></textarea>
-                        <input className="text-center bg-green-800 text-white py-2 w-full" type="submit" value="Submit" />
+
+                        {
+                            isDataLoading ? <button className="text-center bg-green-800 text-white py-2 w-full"><span className="loading loading-dots loading-xs"></span></button> : <input className="text-center bg-green-800 text-white py-2 w-full" type="submit" value="Submit" />
+                        }
 
 
 

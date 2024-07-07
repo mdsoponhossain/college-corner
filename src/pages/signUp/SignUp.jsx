@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../contextProvider/ContextProvider";
+import { toast, ToastContainer } from "react-toastify";
 const SignUp = () => {
-    const { handleSignUp, handleUpdateProfile } = useContext(AuthContext)
+    const navigate = useNavigate();
+    const location = useLocation();
+    const { handleSignUp, handleUpdateProfile, isDataLoading, setIsDataLoading } = useContext(AuthContext)
     const {
         register,
         handleSubmit,
@@ -22,9 +25,11 @@ const SignUp = () => {
     //     .then(data=>console.log(data))
 
     // };
-
+    const notify = () => toast("You successfully sign up");
+    const error = () => toast("sign up was failed.Try again");
 
     const onSubmit = async (data) => {
+        setIsDataLoading(true)
         const imageFile = { image: data.image[0] }
         const res = await axios.post(img_hosting_api, imageFile, {
             headers: {
@@ -40,26 +45,34 @@ const SignUp = () => {
                         handleUpdateProfile(profileInfo)
                             .then(async () => {
                                 const userInfo = { user_name: data?.name, user_email: data?.email, user_photo: img, user_password: data?.password }
-                                await fetch('https://college-corner-server.vercel.app/user', {
+                                const res = await fetch('https://college-corner-server.vercel.app/user', {
                                     method: 'POST',
                                     headers: {
                                         'Content-type': 'application/json'
                                     },
                                     body: JSON.stringify(userInfo)
                                 });
-                                // const result = res.json();
-                                // console.log(result)
+                                const result = await res.json();
+                                console.log(result)
+                                if (result?.success) {
+                                    setTimeout(() => {
+                                        navigate(location?.state ? location.state : '/')
+                                    }, 3000);
+                                    notify();
+                                    setIsDataLoading(false)
+                                }
                             })
-                            .catch(() => { })
+                            .catch(() => { error() })
                     }
                 })
-                .catch(() => { })
+                .catch(() => { error() })
         }
 
     };
 
     return (
         <div className="hero min-h-screen md:pt-4 lg:pt-8">
+            <ToastContainer />
             <div className="md:hero-content w-full flex-col">
                 <div className="cardflex-shrink-0 w-[100%] mx-auto  md:w-[500px] h-fit shadow-xl bg-base-300 md:bg-base-100">
                     <h1 className="text-2xl md:text-5xl font-bold text-center text-green-700 pt-16 md:pt-10">Sign Up </h1>
@@ -96,7 +109,12 @@ const SignUp = () => {
                             <input type="password" {...register("password", { required: true })} placeholder="Enter Your Password" className="input input-bordered" required />
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn  text-white bg-green-700 hover:bg-green-900">Sign up</button>
+                            <button className="btn  text-white bg-green-700 hover:bg-green-900">
+                                {
+                                    isDataLoading ? <span className="loading loading-dots loading-xs"></span> : 'Sign up'
+                                }
+                            </button>
+
                             <label className="label">
                                 <span>Have an account? please <Link to='/login' className="text-xl text-[#09ad9b] pl-2">LogIn</Link></span>
                             </label>
