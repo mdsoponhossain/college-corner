@@ -1,17 +1,29 @@
 import { Link } from 'react-router-dom';
 import './homeReserachPaper.css'
 import { FaArrowRightLong } from "react-icons/fa6";
+import { useEffect } from 'react';
+import Aos from 'aos';
 const HomeResearchPaper = () => {
+
+    useEffect(() => {
+        Aos.init({
+            offset: 200,
+            duration: 800,
+            easing: 'ease-in-sine',
+            delay: 100,
+        })
+    }, [])
+
     return (
         <div className="mt-5 max-w-[1280px] mx-auto">
-            <h1 className="text-4xl text-center">Student's Research</h1>
+            <h1 className="text-2xl md:text-4xl text-center">Student's Research</h1>
             <div className="flex justify-center">
                 <div className="grid justify-center w-[15%] border-b-4 border-b-green-700 my-5">
 
                 </div>
             </div>
             {/* research card container */}
-            <div className="relative  h-fit md:h-[600px]">
+            <div data-aos="flip-left" className="relative  h-fit md:h-[600px]">
                 {/* image-1 */}
                 <div className="md:absolute md:w-[30%] right-[35%] top-[10%] h-[200px] bg-cover"
                     style={{

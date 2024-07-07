@@ -1,6 +1,10 @@
+import Aos from "aos";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
 const Banner = () => {
+    useEffect(()=>{
+        Aos.init();
+    },[])
     return (
         <div className="hero min-h-[500px] bg-[rgb(20,69,47)] text-white">
             <div className="hero-content text-center relative p-0">
@@ -9,7 +13,7 @@ const Banner = () => {
                         <img className="h-full w-full " src="https://i.ibb.co/VqqC3wz/student2.png" alt="" />
                     </div>
 
-                    <div className="flex-grow ">
+                    <div data-aos="zoom-in" className="flex-grow ">
                         <div className=" min-h-[300px] max-h-fit pb-8 md:pb-0 mt-[10%]">
                             <h1 className=" text-2xl md:text-4xl font-bold">Welcome to CollegeCorner</h1>
                             <p className="py-6 text-lg md:text-xl text-justify  md:text-center px-3 md:px-0">

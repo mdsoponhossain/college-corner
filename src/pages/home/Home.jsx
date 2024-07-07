@@ -1,9 +1,11 @@
+import { useEffect } from "react";
 import Banner from "../../component/banner/Banner";
 import CollegeCard from "../../component/collegeCard/CollegeCard";
 import HomeGallery from "../../component/homeGallery/HomeGallery";
 import HomeResearchPaper from "../../component/homeResearchPaper/HomeResearchPaper";
 
 const Home = () => {
+   
     return (
         <div>
             <Banner></Banner>

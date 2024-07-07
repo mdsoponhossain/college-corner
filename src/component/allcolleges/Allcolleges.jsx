@@ -6,6 +6,7 @@ import CountUp from 'react-countup';
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../contextProvider/ContextProvider";
+import Aos from "aos";
 
 const Allcolleges = () => {
     const { searchText } = useContext(AuthContext);
@@ -17,7 +18,14 @@ const Allcolleges = () => {
     }, [searchText])
 
 
-
+    useEffect(() => {
+        Aos.init({
+            offset: 200,
+            duration: 800,
+            easing: 'ease-in-sine',
+            delay: 100,
+        })
+    }, [])
 
 
 
@@ -62,7 +70,7 @@ const Allcolleges = () => {
                     {/* first card */}
                     {
                         colleges?.map((college) =>
-                            <div key={college._id} className="bg-base-100 my-5 md:my-0 hover:bg-base-200 shadow-xl card-radius">
+                            <div data-aos="zoom-in-up" key={college._id} className="bg-base-100 my-5 md:my-0 hover:bg-base-200 shadow-xl card-radius">
 
                                 <figure>
                                     <img className="rounded-t-md h-[250px] w-full"

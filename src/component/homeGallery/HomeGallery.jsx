@@ -5,7 +5,18 @@ import 'swiper/css';
 // import 'swiper/css/pagination';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
+import { useEffect } from 'react';
+import Aos from 'aos';
 const HomeGallery = () => {
+
+    useEffect(() => {
+        Aos.init({
+            offset: 200,
+            duration: 800,
+            easing: 'ease-in-sine',
+            delay: 100,
+        })
+    }, [])
     return (
         <div className="mt-5 max-w-[1280px] mx-auto">
             <h1 className="text-2xl md:text-4xl text-center">Gallery</h1>
@@ -15,7 +26,7 @@ const HomeGallery = () => {
                 </div>
             </div>
             {/* card container */}
-            <div>
+            <div data-aos="fade-up">
                 <Swiper
                     spaceBetween={30}
                     centeredSlides={true}

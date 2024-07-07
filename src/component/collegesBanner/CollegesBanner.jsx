@@ -1,10 +1,20 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../contextProvider/ContextProvider";
 import { IoSearchOutline } from "react-icons/io5";
+import Aos from "aos";
 
 
 const CollegesBanner = () => {
     const { handleSearch } = useContext(AuthContext);
+    useEffect(() => {
+        Aos.init({
+            offset: 200,
+            duration: 800,
+            easing: 'ease-in-sine',
+            delay: 100,
+        })
+    }, [])
+
     return (
         <div className="hero min-h-[500px] bg-[rgb(20,69,47)] text-white">
             <div className="hero-content text-center relative p-0">
@@ -13,7 +23,7 @@ const CollegesBanner = () => {
                         <img className="h-full w-full " src="https://i.ibb.co/VqqC3wz/student2.png" alt="" />
                     </div>
 
-                    <div className="flex-grow  md:w-[80%] grid items-center">
+                    <div data-aos="zoom-in" className="flex-grow  md:w-[80%] grid items-center">
                         <div className=" h-[100px] mt-[10%] grid justify-center">
                             <h1 className=" text-2xl md:text-4xl font-bold mb-5 text-center">Find Your college Here</h1>
                             <form onSubmit={handleSearch} className="flex">
