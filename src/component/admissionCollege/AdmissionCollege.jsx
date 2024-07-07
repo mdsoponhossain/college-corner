@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 
 
 const AdmissionCollege = () => {
-    const { currentUser, isDataLoading, setIsDataLoading } = useContext(AuthContext);
+    const { currentUser, isDataLoading, setIsDataLoading, notify } = useContext(AuthContext);
     const navigation = useNavigate()
     //college id :
     const [collegeId, setCollegeId] = useState('');
@@ -22,8 +22,6 @@ const AdmissionCollege = () => {
             .then(data => setColleges(data));
     }, []);
 
-    const notify = () => toast("successfully college is booked");
-    const error = () => toast("college book was failed");
 
     const onSubmit = data => {
         setIsDataLoading(true)
@@ -42,10 +40,10 @@ const AdmissionCollege = () => {
                     setTimeout(() => {
                         navigation(`/my-college/${currentUser?.email}`);
                     }, 3000);
-                    notify()
+                    notify("successfully college is booked")
                 }
                 else {
-                    error()
+                    notify("college book was failed")
                 }
                 setIsDataLoading(false)
             })

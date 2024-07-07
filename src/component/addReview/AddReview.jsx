@@ -2,12 +2,10 @@ import { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../contextProvider/ContextProvider";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast, ToastContainer } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const AddReview = () => {
-    const { currentUser, isDataLoading, setIsDataLoading } = useContext(AuthContext);
-    const notify = () => toast("your review added");
-    const error = () => toast("Something wrong.Try again later");
+    const { currentUser, isDataLoading, setIsDataLoading, notify } = useContext(AuthContext);
     const { id } = useParams();
     const navigation = useNavigate();
     const {
@@ -33,9 +31,9 @@ const AddReview = () => {
                     setTimeout(() => {
                         navigation(`/my-college/${currentUser?.email}`)
                     }, 3000);
-                    notify()
+                    notify("your review added")
                 } else {
-                    error();
+                    notify("Something wrong.Try again later");
                 }
             })
     }
@@ -45,7 +43,7 @@ const AddReview = () => {
     return (
         <div className="hero bg-base-200 min-h-screen">
             <div className="hero-content">
-                <ToastContainer/>
+                <ToastContainer />
 
                 <div className="max-w-[400px] mx-auto bg-slate-200 p-10">
                     <form onSubmit={handleSubmit(onSubmit)} >

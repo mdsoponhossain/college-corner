@@ -1,19 +1,16 @@
 import { useContext, useState } from "react";
 import { Link, useLocation, useNavigate, } from "react-router-dom";
 import { AuthContext } from "../../contextProvider/ContextProvider";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 
 
 
 const Login = () => {
-    const { handleSignIn, handleResetPassword, isDataLoading, setIsDataLoading } = useContext(AuthContext);
+    const { handleSignIn, handleResetPassword, isDataLoading, setIsDataLoading, notify } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
-    const notify = () => toast("You have logged in successfully");
-    const error = () => toast("Something wrong.Try again later");
-    const notifyAboutPassRestEmail = () => toast("Password reset email was sent to your email");
     const location = useLocation();
 
     const signIn = (e) => {
@@ -21,26 +18,30 @@ const Login = () => {
         setIsDataLoading(true)
         const email = e.target.email.value;
         const password = e.target.password.value;
-        handleSignIn(email, password)
-            .then((res) => {
-                if (res?.user) {
-                    //notify does not
-                    setTimeout(() => {
-                        navigate(location?.state ? location.state : '/')
-                    }, 3000);
-                    notify();
-                    setIsDataLoading(false)
-                }
-            })
-            .catch(() => { error(); setIsDataLoading(false) });
+        if (password?.length < 6) {
+            notify("Enter your correct password"); setIsDataLoading(false)
+        } else {
+            handleSignIn(email, password)
+                .then((res) => {
+                    if (res?.user) {
+                        setTimeout(() => {
+                            navigate(location?.state ? location.state : '/')
+                        }, 3000);
+                        notify("You have logged in successfully");
+                        setIsDataLoading(false)
+                    }
+                })
+                .catch(() => { notify("Something wrong.Try again later"); setIsDataLoading(false) });
+        }
+
 
     }
 
     const resetThePassword = () => {
         if (email?.length > 12) {
             handleResetPassword(email)
-                .then(() => { notifyAboutPassRestEmail() })
-                .catch(() => { error() })
+                .then(() => { notify("Password reset email was sent to your email") })
+                .catch(() => { notify("Something wrong.Try again later") })
         }
     }
     return (

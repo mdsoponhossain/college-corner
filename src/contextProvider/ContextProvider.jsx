@@ -1,7 +1,8 @@
 import { createContext, useEffect, useState } from "react";
 import { createUserWithEmailAndPassword, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.config";
-export const AuthContext = createContext(null)
+import { toast } from "react-toastify";
+export const AuthContext = createContext(null);
 const ContextProvider = ({ children }) => {
     const [searchText, setSearchText] = useState('');
     const [isLoading, setIsLoading] = useState(true);
@@ -47,7 +48,10 @@ const ContextProvider = ({ children }) => {
     //password set handling:
     const handleResetPassword = (email) => {
         return sendPasswordResetEmail(auth, email)
-    }
+    };
+
+    const notify = (text) => toast(`${text}`);
+
 
 
     const authInfo = {
@@ -61,7 +65,8 @@ const ContextProvider = ({ children }) => {
         isLoading,
         handleResetPassword,
         isDataLoading,
-        setIsDataLoading
+        setIsDataLoading,
+        notify
     };
 
     return (

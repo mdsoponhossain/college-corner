@@ -7,7 +7,7 @@ import { toast, ToastContainer } from "react-toastify";
 const SignUp = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { handleSignUp, handleUpdateProfile, isDataLoading, setIsDataLoading } = useContext(AuthContext)
+    const { handleSignUp, handleUpdateProfile, isDataLoading, setIsDataLoading,notify } = useContext(AuthContext)
     const {
         register,
         handleSubmit,
@@ -25,54 +25,63 @@ const SignUp = () => {
     //     .then(data=>console.log(data))
 
     // };
-    const notify = () => toast("You successfully sign up");
-    const error = () => toast("sign up was failed.Try again");
+    
+
 
     const onSubmit = async (data) => {
         setIsDataLoading(true)
-        const imageFile = { image: data.image[0] }
-        const res = await axios.post(img_hosting_api, imageFile, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+        console.log('password: i am from out', data?.password?.length)
+        if (data?.password?.length < 6) {
+            notify("Password should be at least 5 characters");
+            setIsDataLoading(false)
+            return;
+        } else {
+            console.log('I am from the else')
+            const imageFile = { image: data.image[0] }
+            const res = await axios.post(img_hosting_api, imageFile, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            const img = res.data.data.url;
+            if (res?.data?.data?.url) {
+                handleSignUp(data?.email, data?.password)
+                    .then(res => {
+                        if (res?.user) {
+                            const profileInfo = { name: data?.name, img }
+                            handleUpdateProfile(profileInfo)
+                                .then(async () => {
+                                    const userInfo = { user_name: data?.name, user_email: data?.email, user_photo: img, user_password: data?.password }
+                                    const res = await fetch('https://college-corner-server.vercel.app/user', {
+                                        method: 'POST',
+                                        headers: {
+                                            'Content-type': 'application/json'
+                                        },
+                                        body: JSON.stringify(userInfo)
+                                    });
+                                    const result = await res.json();
+                                    console.log(result)
+                                    setIsDataLoading(false)
+                                    if (result?.success) {
+                                        setTimeout(() => {
+                                            navigate(location?.state ? location.state : '/')
+                                        }, 3000);
+                                        notify("You successfully sign up");
+                                    }
+                                })
+                                .catch(() => { notify("You successfully sign up");; setIsDataLoading(false) })
+                        }
+                    })
+                    .catch(() => { notify("sign up was failed.Try again"); setIsDataLoading(false) });
             }
-        })
-        const img = res.data.data.url;
-        if (res?.data?.data?.url) {
-            handleSignUp(data?.email, data?.password)
-                .then(res => {
-                    if (res?.user) {
-                        const profileInfo = { name: data?.name, img }
-                        handleUpdateProfile(profileInfo)
-                            .then(async () => {
-                                const userInfo = { user_name: data?.name, user_email: data?.email, user_photo: img, user_password: data?.password }
-                                const res = await fetch('https://college-corner-server.vercel.app/user', {
-                                    method: 'POST',
-                                    headers: {
-                                        'Content-type': 'application/json'
-                                    },
-                                    body: JSON.stringify(userInfo)
-                                });
-                                const result = await res.json();
-                                console.log(result)
-                                setIsDataLoading(false)
-                                if (result?.success) {
-                                    setTimeout(() => {
-                                        navigate(location?.state ? location.state : '/')
-                                    }, 3000);
-                                    notify();
-                                }
-                            })
-                            .catch(() => { error(); setIsDataLoading(false) })
-                    }
-                })
-                .catch(() => { error(); setIsDataLoading(false) });
         }
+
 
     };
 
     return (
         <div className="hero min-h-screen md:pt-4 lg:pt-8">
-             <ToastContainer />
+            <ToastContainer />
             <div className="md:hero-content w-full flex-col">
                 <div className="cardflex-shrink-0 w-[100%] mx-auto  md:w-[500px] h-fit shadow-xl bg-base-300 md:bg-base-100">
                     <h1 className="text-2xl md:text-5xl font-bold text-center text-green-700 pt-16 md:pt-10">Sign Up </h1>
