@@ -54,25 +54,25 @@ const SignUp = () => {
                                 });
                                 const result = await res.json();
                                 console.log(result)
+                                setIsDataLoading(false)
                                 if (result?.success) {
                                     setTimeout(() => {
                                         navigate(location?.state ? location.state : '/')
                                     }, 3000);
                                     notify();
-                                    setIsDataLoading(false)
                                 }
                             })
-                            .catch(() => { error() })
+                            .catch(() => { error(); setIsDataLoading(false) })
                     }
                 })
-                .catch(() => { error() })
+                .catch(() => { error(); setIsDataLoading(false) });
         }
 
     };
 
     return (
         <div className="hero min-h-screen md:pt-4 lg:pt-8">
-            <ToastContainer />
+             <ToastContainer />
             <div className="md:hero-content w-full flex-col">
                 <div className="cardflex-shrink-0 w-[100%] mx-auto  md:w-[500px] h-fit shadow-xl bg-base-300 md:bg-base-100">
                     <h1 className="text-2xl md:text-5xl font-bold text-center text-green-700 pt-16 md:pt-10">Sign Up </h1>

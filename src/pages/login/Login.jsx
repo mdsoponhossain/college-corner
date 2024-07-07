@@ -8,7 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 const Login = () => {
-    const { handleSignIn, handleResetPassword,isDataLoading, setIsDataLoading } = useContext(AuthContext);
+    const { handleSignIn, handleResetPassword, isDataLoading, setIsDataLoading } = useContext(AuthContext);
     const [email, setEmail] = useState('');
     const navigate = useNavigate();
     const notify = () => toast("You have logged in successfully");
@@ -32,7 +32,7 @@ const Login = () => {
                     setIsDataLoading(false)
                 }
             })
-            .catch(() => { error() })
+            .catch(() => { error(); setIsDataLoading(false) });
 
     }
 
