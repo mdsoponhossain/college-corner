@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom";
 import './navbar.css'
 import { IoSearchOutline } from "react-icons/io5";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../../contextProvider/ContextProvider";
+import { RxCross1 } from "react-icons/rx";
 
 const Navbar = () => {
     const { currentUser, handleSignOut } = useContext(AuthContext);
+    const [isSearching, setIsSearching] = useState(false);
     const navItems = <>
         <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/'>Home</NavLink></li>
         <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/colleges'>Colleges</NavLink></li>
-        
+
         {
             currentUser && <li><NavLink className='ml-5 text-[#7D8577]  font-semibold text-md' to='/admission'>Admission</NavLink></li>
 
@@ -52,9 +54,8 @@ const Navbar = () => {
                         {navItems}
                     </ul>
                 </div>
-                <div className="navbar-end  relative">
-                    <IoSearchOutline className="hidden md:block md:absolute search-icon mr-5 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer"></IoSearchOutline>
-                    {/* <NavLink to='/sign-up'>Sign Up</NavLink> */}
+                <div className="navbar-end relative">
+                    <IoSearchOutline onClick={() => setIsSearching(true)} className="block md:absolute search-icon mr-2 md:mr-0 md:right-[30%] lg:right-[35%] text-2xl md:text-3xl hover:cursor-pointer"></IoSearchOutline>
                     {
                         !currentUser?.email ? <NavLink to='/sign-up'>Sign Up</NavLink> :
                             <div className="dropdown dropdown-end">
@@ -73,6 +74,22 @@ const Navbar = () => {
             </div>
 
             {/* search container */}
+            <div className={isSearching ? "w-full h-40 bg-white  mt-[0.5px] absolute z-10" : "hidden"}>
+                <div className={isSearching && "w-full relative right-0 grid justify-end"}>
+                    <div onClick={() => setIsSearching(false)} className={isSearching && "h-14 w-14 grid justify-center items-center"}>
+                        <RxCross1 className={isSearching ? "text-2xl md:text-3xl text-center" : "hidden"} />
+                    </div>
+                </div>
+
+                {/* search form */}
+                <div className={isSearching ? "w-[90%] md:w-[60%] lg:w-[40%] mx-auto" : "hidden"}>
+                    <form className={isSearching ? "flex text-white" : "hidden"}>
+                        <input type="text" name="searchText" className="text-white bg-green-700 pl-2 h-12 w-[80%]" placeholder="Your Search Text..." />
+                        <button className="grid justify-center items-center w-[80px] h-12 bg-black text-2xl"><IoSearchOutline className="block text-white"></IoSearchOutline></button>
+                    </form>
+                </div>
+
+            </div>
         </div>
     );
 };
